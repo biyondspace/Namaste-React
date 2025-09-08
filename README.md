@@ -38,3 +38,27 @@
 
 * Address
 * contact
+
+Two types of Export/Import
+
+- Default Export/Import
+
+export default Component;
+import Component from "path";
+
+Named Export/Import
+
+export const Component;
+import {Component} from "path";
+
+# React Hooks
+
+(Normal JS Utility functions)
+
+- useState() - Superpowerful State variable in react
+- useEffect()
+
+# 2 types of Routnig in web apps
+
+- Client side Routnig
+- Server side Routnig
