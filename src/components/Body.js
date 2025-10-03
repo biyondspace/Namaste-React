@@ -1,37 +1,34 @@
 import RestaurantCard from "./RestaurantCard";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
+import useListOfReastaurant from "../utils/useListOfRestaurant";
+import useFilteredRestaurant from "../utils/useFilteredRestaurant";
 
 const Body = () => {
-  const [listOfRestaurant, setListOfRestaurant] = useState([]);
-  const [filteredRestaurant, setFilteredRestaurant] = useState([]);
+  const [listOfRestaurant, setListOfRestaurant] = useListOfReastaurant();
+  const [filteredRestaurant, setFilteredRestaurant] = useFilteredRestaurant();
 
   const [searchText, setSearchText] = useState("");
 
   console.log("Body Rendered");
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    const data = await fetch(
-      "https://corsproxy.io/https://www.swiggy.com/dapi/restaurants/list/v5?lat=21.19810&lng=72.82980&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+  const onlineStatus = useOnlineStatus();
+  if (onlineStatus === false)
+    return (
+      <div>
+        <h1>Looks like you're offline!! check your internet connection.</h1>
+        <button
+          className="onbtn"
+          onClick={() => {
+            window.location.reload();
+          }}
+        >
+          Retry
+        </button>
+      </div>
     );
-
-    const json = await data.json();
-    console.log(
-      json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
-    );
-
-    setListOfRestaurant(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-    setFilteredRestaurant(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-  };
 
   return listOfRestaurant.length === 0 ? (
     <Shimmer />
@@ -65,7 +62,7 @@ const Body = () => {
           className="filter-btn"
           onClick={() => {
             const filteredList = listOfRestaurant.filter(
-              (res) => res?.info?.avgRating > 4
+              (res) => res?.info?.avgRating > 4.5
             );
             setListOfRestaurant(filteredList);
           }}

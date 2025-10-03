@@ -89,3 +89,12 @@
   padding: 10px;
   border: 1px solid black;
 }
+
+.onbtn {
+  background-color: black;
+  color: #3ea6ff;
+  border: 15px solid #ffffff1a;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-left: 50px;
+}
