@@ -1,4 +1,5 @@
 import React, { lazy, Suspense } from "react";
+import "../index.css";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
@@ -53,13 +54,15 @@ const appRouter = createBrowserRouter([
         ),
       },
       {
-        path: "/city/surat/:resId",
+        path: "/restaurants/:resId",
         element: <RestaurantMenu />,
       },
     ],
     errorElement: <Error />,
   },
 ]);
+
+<div className="bg-red-500 text-white p-4">Tailwind is working!</div>;
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<RouterProvider router={appRouter} />);

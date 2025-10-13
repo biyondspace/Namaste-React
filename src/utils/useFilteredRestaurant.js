@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { RES_API } from "./contants";
+import { RES_API } from "./constants";
 
 const useFilteredRestaurant = () => {
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);

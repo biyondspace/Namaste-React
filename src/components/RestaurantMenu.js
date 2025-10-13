@@ -9,35 +9,23 @@ const RestaurantMenu = () => {
 
   if (resInfo === null) return <Shimmer />;
 
-  const { name, cuisines, costForTwoMessage } =
-    resInfo?.cards[2]?.card?.card?.info || {};
-
-  const menuCard = resInfo?.cards?.find(
-    (c) => c.groupedCard?.cardGroupMap?.REGULAR?.cards
-  );
-
   const itemCards =
-    menuCard?.groupedCard?.cardGroupMap?.REGULAR?.cards?.find(
-      (c) => c.card?.card?.itemCards
-    )?.card?.card?.itemCards || [];
-
-  console.log(itemCards);
+    resInfo?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants ||
+    [];
 
   return (
     <div className="menu">
-      <h1>{name}</h1>
+      <h1>{resInfo?.info?.name}</h1>
       <p>
-        {cuisines?.join(", ")} - {costForTwoMessage}
+        {resInfo?.info?.cuisines?.join(", ")} - {resInfo?.info?.costForTwo}
       </p>
 
-      <h2>Menu</h2>
-      <ul>
+      <h1 className="px-4 font-medium">Menu</h1>
+      <ul className="px-4 font-medium">
         {itemCards.map((item) => (
-          <li key={item?.card?.info?.id}>
-            {item?.card?.info?.name} - {"Rs."}
-            {item.card.info.price
-              ? item.card.info.price / 100
-              : item.card.info.defaultPrice / 100}
+          <li key={item?.info?.id}>
+            {item?.info?.name} - {"Rs."}
+            {item.info.costForTwo}
           </li>
         ))}
       </ul>
